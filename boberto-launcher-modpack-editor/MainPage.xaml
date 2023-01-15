@@ -2,50 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="boberto_launcher_modpack_editor.MainPage">
+    
 
     <ScrollView>
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Center">
-            
-            <!--<Frame Margin="20" BackgroundColor="White">
-                <Frame.GestureRecognizers>
-                    <DropGestureRecognizer AllowDrop="True"  Drop="DropGestureRecognizer_Drop_1" />
-                </Frame.GestureRecognizers>
-            </Frame>-->
-
-            <ListView ItemsSource="{Binding LocalModPacks}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Grid Padding="10" BackgroundColor="Black">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                         <Label Grid.Column="1"
-                           Text="{Binding Id}"
-                            TextColor="White"
-                           FontAttributes="Bold">
-
-                            <Label.GestureRecognizers>
-                                <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting_1" />
-                            </Label.GestureRecognizers>
-                             </Label>
-                              
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-
-
+            <Picker Title="Select ModPack" ItemsSource="{Binding LocalModPacks}" SelectedItem="{Binding CurrentModPack}"/>
         </VerticalStackLayout>
     </ScrollView>
 
