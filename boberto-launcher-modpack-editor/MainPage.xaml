@@ -9,7 +9,22 @@
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Center">
-            <Picker Title="Select ModPack" ItemsSource="{Binding LocalModPacks}" SelectedItem="{Binding CurrentModPack}"/>
+
+            <Image
+                Source="dotnet_bot.png"
+                SemanticProperties.Description="Cute dot net bot waving hi to you!"
+                HeightRequest="200"
+                HorizontalOptions="Center" />
+            <HorizontalStackLayout>
+                <Picker Title="Select ModPack" x:Name="PickerModPack" ItemsSource="{Binding LocalModPacks}" SelectedItem="{Binding CurrentModPack}"/>
+                <Button Text="Add" Clicked="AddModPack"/>
+                <Button Text="Remove" Clicked="RemoveModPack"/>
+            </HorizontalStackLayout>
+            <Label
+                Text="{Binding CurrentModPack.Name}"
+                TextColor="White"
+                FontSize="32"
+                HorizontalOptions="Center" />
         </VerticalStackLayout>
     </ScrollView>
 

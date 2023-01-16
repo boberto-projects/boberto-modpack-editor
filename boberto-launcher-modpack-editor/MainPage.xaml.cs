@@ -14,8 +14,11 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         LocalModPacks = new ObservableCollection<ModPack>();
-        var localApp = AppDomain.CurrentDomain.BaseDirectory;
-        var modpackDir = Path.Combine(localApp, "modpacks");
+        var modpackDir = Utils.GetModPacksDir();
+        if (Directory.Exists(modpackDir) == false)
+        {
+            Directory.CreateDirectory(modpackDir);
+        }
         string[] modpacksDir = Directory.GetDirectories(modpackDir);
         foreach (var modpack in modpacksDir)
         {
@@ -48,6 +51,16 @@ public partial class MainPage : ContentPage
         {
             Text = data
         };
+    }
+
+    private void AddModPack(object sender, EventArgs e)
+    {
+        var modPack = new ModPack();
+        modPack.Create();
+    }
+    private void RemoveModPack(object sender, EventArgs e)
+    {
+
     }
 }
 
