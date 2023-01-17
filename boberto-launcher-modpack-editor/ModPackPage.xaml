@@ -2,140 +2,177 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="boberto_launcher_modpack_editor.ModPackPage"
-             Title="ModPackPage">
+             Title="ModPack Assistant">
     <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Center">
-        <Label
-                Text="ModPack Assistant"
+       
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <VerticalStackLayout Grid.Row="0" Grid.Column="0" >
+                <Label
+                x:Name="Id"
+                 Text="meu id"
                 TextColor="White"
-                FontSize="Title"
+                FontSize="Medium"
                 VerticalTextAlignment="Center"
                 HorizontalOptions="Center" />
+                
+            
+           
+            </VerticalStackLayout>
 
-        <VerticalStackLayout>
-         
-            <Label
-                    x:Name="Id"
-                    TextColor="White"
-                    FontSize="Medium"
-                    VerticalTextAlignment="Center"
-                    HorizontalOptions="Center" />
-            <Entry
-              MaxLength="20"
+            <VerticalStackLayout Grid.Row="1" Grid.Column="0" >
+                <Entry
                 Placeholder="ModPack Name" 
               x:Name="Name" />
-            <Label
-               Text="ModPack Options"
-                TextColor="White"
-                FontSize="Subtitle"
-                VerticalTextAlignment="Center"
-                HorizontalOptions="Center" />
-
-            <HorizontalStackLayout>
-            <Label
+                <HorizontalStackLayout>
+                    
+                    <Label
                 Text="Enable Mods"
                 TextColor="White"
-                FontSize="12"
                 VerticalTextAlignment="Center"
                 HorizontalOptions="Center" />
-            <CheckBox
+                    <CheckBox
           x:Name="Modded"/>
-        </HorizontalStackLayout>
+                </HorizontalStackLayout>
 
-            <HorizontalStackLayout>
-                <Label
-                Text="Check files"
-                TextColor="White"
-                FontSize="12"
-                VerticalTextAlignment="Center"
-                HorizontalOptions="Center" />
-                <CheckBox
-          x:Name="isVerifyMods"/>
-            </HorizontalStackLayout>
-            <Entry
+                <HorizontalStackLayout>
+                    <Label
+            Text="Check files"
+            TextColor="White"
+            VerticalTextAlignment="Center"
+            HorizontalOptions="Center" />
+                    <CheckBox
+        x:Name="isVerifyMods"/>
+                    <Entry
               MaxLength="20"
-                Placeholder="Ignored ( spaced by comma) " 
+                Placeholder="crash-reports, logs, resourcepacks, saves, options.txt" 
                 ToolTipProperties.Text="Files or Dirs that Boberto Launcher will ignore when Check Files enabled"
               x:Name="Ignored" />
+                </HorizontalStackLayout>
 
-            <HorizontalStackLayout>
-                <Label
+                <HorizontalStackLayout>
+                    <Label
                 Text="Default"
                 TextColor="White"
                 FontSize="12"
                 VerticalTextAlignment="Center"
                 HorizontalOptions="Center" />
-                <CheckBox
+                    <CheckBox
           x:Name="isDefault"/>
-            </HorizontalStackLayout>
+                </HorizontalStackLayout>
 
-            <HorizontalStackLayout>
-                <Label
+                <HorizontalStackLayout>
+                    <Label
                 Text="Premium Server"
                 ToolTipProperties.Text="users with offline mode cant enter"
                 TextColor="White"
                 FontSize="12"
                 VerticalTextAlignment="Center"
                 HorizontalOptions="Center" />
-                <CheckBox
+                    <CheckBox
           x:Name="isPremium"/>
-            </HorizontalStackLayout>
+                </HorizontalStackLayout>
 
-            <HorizontalStackLayout>
-                <Label
+                <HorizontalStackLayout>
+                    <Label
                 Text="Java"
                 ToolTipProperties.Text="Install java JDK necessary for moded api or minecraft version."
                 TextColor="White"
                 FontSize="12"
                 VerticalTextAlignment="Center"
                 HorizontalOptions="Center" />
-                <CheckBox
+                    <CheckBox
           x:Name="java"/>
-            </HorizontalStackLayout>
-        </VerticalStackLayout>
+                </HorizontalStackLayout>
 
-        <Entry
-              MaxLength="20"
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1" Grid.Column="1">
+               
+                <Entry
                 Placeholder="Server IP" 
               x:Name="serverIp" />
-            <Entry
-              MaxLength="20"
+                <Entry
                 Placeholder="Server Port" 
               x:Name="serverPort" />
-
-
-    
-       
-
-        <VerticalStackLayout>
-            <Label
-               Text="Author Space"
+                
+              <HorizontalStackLayout>
+                    <Label
+                Text="Create server.dat"
+                ToolTipProperties.Text="Save ip connection as server.dat at client"
                 TextColor="White"
-                FontSize="Subtitle"
                 VerticalTextAlignment="Center"
                 HorizontalOptions="Center" />
-            <Entry
+                    <CheckBox
+          x:Name="isCreateServerDatFile"/>
+                </HorizontalStackLayout>
+                
+                <Entry
+                    ToolTipProperties.Text="The directory name of this modpack. Directory names only uses lowercase and without spaces os custom chars"
               MaxLength="20"
-                Placeholder="Your name" 
-              x:Name="Author" />
+                Placeholder="Directory" 
+              x:Name="directory" />
 
-            <Entry
+                <Entry
+                    ToolTipProperties.Text="The Minecraft Vanilla version."
               MaxLength="20"
-                Placeholder="ModPack description" 
-              x:Name="Description" />
+                Placeholder="Minecraft version. Example: 1.12.2, 1.16.5" 
+              x:Name="gameVersion" />
 
-            <Entry
-              MaxLength="20"
-                Placeholder="ModPak Img Url" 
-              x:Name="img" />
+                
+                <Button 
+                Text="Forge Installer Assistant"
+         
+              Clicked="ForgeInstallerAssistantClicked"
+            />
 
-        </VerticalStackLayout>
-        
-       
-        <Button Text="Save" Clicked="SaveClicked" />
-        <Button Text="Cancel" />
+                <Button Text="Save"
+                    Clicked="SaveClicked" 
+              
+                    />
+                <Button 
+                Text="Cancel" 
+               
+                Clicked="CancelClicked" />
+
+            </VerticalStackLayout>
+            
+            <VerticalStackLayout Grid.Row="2" Grid.Column="0">
+                <Label
+                   Text="Author Space"
+                    TextColor="White"
+                    FontSize="Subtitle"
+                    VerticalTextAlignment="Center"
+                    HorizontalOptions="Center" />
+                <Entry
+                    Placeholder="Your name" 
+                  x:Name="Author" />
+
+                <Entry
+                    Placeholder="ModPack description" 
+                  x:Name="Description" />
+
+                <Entry
+                    Placeholder="ModPak Img Url" 
+                  x:Name="img" />
+            </VerticalStackLayout>
+
+        </Grid>
+     
+
 
     </VerticalStackLayout>
 </ContentPage>

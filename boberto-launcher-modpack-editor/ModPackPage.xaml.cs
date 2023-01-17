@@ -24,4 +24,10 @@ public partial class ModPackPage : ContentPage
         await Navigation.PopAsync();
 
     }
+    private void ForgeInstallerAssistantClicked(object sender, EventArgs e)
+    {
+
+    }
+
+
 }
