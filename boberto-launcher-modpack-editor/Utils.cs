@@ -8,9 +8,16 @@ namespace boberto_launcher_modpack_editor
 {
     public static class Utils
     {
+        public const string ConfigFile = "config.json";
         public const string ClientFolder = "client";
         public const string ServerFolder = "server";
         public const string ModPackDir = "modpacks";
+        public static string GetDefaultAppDomain()
+        {
+            var localApp = AppDomain.CurrentDomain.BaseDirectory;
+            return localApp;
+        }
+        public static string GetConfigFile() { return Path.Combine(GetDefaultAppDomain(), ConfigFile); }
         public static string GetModPacksDir()
         {
             var localApp = AppDomain.CurrentDomain.BaseDirectory;

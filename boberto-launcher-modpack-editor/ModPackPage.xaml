@@ -23,7 +23,6 @@
             <VerticalStackLayout Grid.Row="0" Grid.Column="0" >
                 <Label
                 x:Name="Id"
-                 Text="meu id"
                 TextColor="White"
                 FontSize="Medium"
                 VerticalTextAlignment="Center"
@@ -45,7 +44,7 @@
                 VerticalTextAlignment="Center"
                 HorizontalOptions="Center" />
                     <CheckBox
-          x:Name="Modded"/>
+          x:Name="isModded"/>
                 </HorizontalStackLayout>
 
                 <HorizontalStackLayout>
@@ -95,7 +94,7 @@
                 VerticalTextAlignment="Center"
                 HorizontalOptions="Center" />
                     <CheckBox
-          x:Name="java"/>
+          x:Name="isJava"/>
                 </HorizontalStackLayout>
 
             </VerticalStackLayout>
@@ -130,22 +129,17 @@
                     ToolTipProperties.Text="The Minecraft Vanilla version."
               MaxLength="20"
                 Placeholder="Minecraft version. Example: 1.12.2, 1.16.5" 
-              x:Name="gameVersion" />
-
-                
+              x:Name="minecraftVersion" />
                 <Button 
+                TextColor="Black"
                 Text="Forge Installer Assistant"
-         
               Clicked="ForgeInstallerAssistantClicked"
             />
-
                 <Button Text="Save"
                     Clicked="SaveClicked" 
-              
                     />
                 <Button 
-                Text="Cancel" 
-               
+                Text="Cancel"
                 Clicked="CancelClicked" />
 
             </VerticalStackLayout>

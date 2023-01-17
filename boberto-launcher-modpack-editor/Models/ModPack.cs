@@ -10,6 +10,20 @@ namespace boberto_launcher_modpack_editor.Models
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public bool IsModded { get; set; }
+        public bool IsVerifyMods { get; set; }
+        public bool IsDefault { get; set; }
+        public bool IsPremiumServer { get; set; }
+        public bool IsJava { get; set; }
+        public string ServerIp { get; set; }
+        public int ServerPort { get; set; }
+
+        public string Directory { get; set; }
+        public string MinecraftVersion { get; set; }
+        public string Author { get; set; }
+        public string Description { get; set; }
+        public string Img { get; set; }
+        public IEnumerable<string> Ignored { get; set; }
         public List<MinecraftFile> Files { get; set; }
         public ModPack()
         {
@@ -22,7 +36,6 @@ namespace boberto_launcher_modpack_editor.Models
             var modpackDir = Path.Combine(Utils.GetModPacksDir(), Name);
             var clientFolder = Path.Combine(modpackDir, Utils.ClientFolder);
             var serverFolder = Path.Combine(modpackDir, Utils.ServerFolder);
-
             Utils.CreateClientDefaultFiles(clientFolder);
             Utils.CreateServerDefaultFiles(serverFolder);
         }

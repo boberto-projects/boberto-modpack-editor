@@ -13,6 +13,7 @@ public partial class MainPage : ContentPage
         InitializeComponent();
         LocalModPacks = new ObservableCollection<ModPack>();
         var modpackDir = Utils.GetModPacksDir();
+        ConfigHelper.InitConfigFile();
         if (Directory.Exists(modpackDir) == false)
         {
             Directory.CreateDirectory(modpackDir);
