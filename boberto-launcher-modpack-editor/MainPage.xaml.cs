@@ -8,8 +8,6 @@ namespace boberto_launcher_modpack_editor;
 public partial class MainPage : ContentPage
 {
     public ObservableCollection<ModPack> LocalModPacks { get; set; }
-    public ModPack CurrentModPack { get; set; }
-
     public MainPage()
     {
         InitializeComponent();
@@ -53,10 +51,12 @@ public partial class MainPage : ContentPage
         };
     }
 
-    private void AddModPack(object sender, EventArgs e)
+    private async void AddModPack(object sender, EventArgs e)
     {
         var modPack = new ModPack();
-        modPack.Create();
+        //modPack.Create();
+        await Navigation.PushAsync(new ModPackPage(modPack));
+
     }
     private void RemoveModPack(object sender, EventArgs e)
     {

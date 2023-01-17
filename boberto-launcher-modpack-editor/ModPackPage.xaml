@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="boberto_launcher_modpack_editor.ModPackPage"
+             Title="ModPackPage">
+    <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+        <Label
+                Text="ModPack Assistant"
+                TextColor="White"
+                FontSize="Title"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="Center" />
+
+        <VerticalStackLayout>
+         
+            <Label
+                    x:Name="Id"
+                    TextColor="White"
+                    FontSize="Medium"
+                    VerticalTextAlignment="Center"
+                    HorizontalOptions="Center" />
+            <Entry
+              MaxLength="20"
+                Placeholder="ModPack Name" 
+              x:Name="Name" />
+            <Label
+               Text="ModPack Options"
+                TextColor="White"
+                FontSize="Subtitle"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="Center" />
+
+            <HorizontalStackLayout>
+            <Label
+                Text="Enable Mods"
+                TextColor="White"
+                FontSize="12"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="Center" />
+            <CheckBox
+          x:Name="Modded"/>
+        </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <Label
+                Text="Check files"
+                TextColor="White"
+                FontSize="12"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="Center" />
+                <CheckBox
+          x:Name="isVerifyMods"/>
+            </HorizontalStackLayout>
+            <Entry
+              MaxLength="20"
+                Placeholder="Ignored ( spaced by comma) " 
+                ToolTipProperties.Text="Files or Dirs that Boberto Launcher will ignore when Check Files enabled"
+              x:Name="Ignored" />
+
+            <HorizontalStackLayout>
+                <Label
+                Text="Default"
+                TextColor="White"
+                FontSize="12"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="Center" />
+                <CheckBox
+          x:Name="isDefault"/>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <Label
+                Text="Premium Server"
+                ToolTipProperties.Text="users with offline mode cant enter"
+                TextColor="White"
+                FontSize="12"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="Center" />
+                <CheckBox
+          x:Name="isPremium"/>
+            </HorizontalStackLayout>
+
+            <HorizontalStackLayout>
+                <Label
+                Text="Java"
+                ToolTipProperties.Text="Install java JDK necessary for moded api or minecraft version."
+                TextColor="White"
+                FontSize="12"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="Center" />
+                <CheckBox
+          x:Name="java"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <Entry
+              MaxLength="20"
+                Placeholder="Server IP" 
+              x:Name="serverIp" />
+            <Entry
+              MaxLength="20"
+                Placeholder="Server Port" 
+              x:Name="serverPort" />
+
+
+    
+       
+
+        <VerticalStackLayout>
+            <Label
+               Text="Author Space"
+                TextColor="White"
+                FontSize="Subtitle"
+                VerticalTextAlignment="Center"
+                HorizontalOptions="Center" />
+            <Entry
+              MaxLength="20"
+                Placeholder="Your name" 
+              x:Name="Author" />
+
+            <Entry
+              MaxLength="20"
+                Placeholder="ModPack description" 
+              x:Name="Description" />
+
+            <Entry
+              MaxLength="20"
+                Placeholder="ModPak Img Url" 
+              x:Name="img" />
+
+        </VerticalStackLayout>
+        
+       
+        <Button Text="Save" Clicked="SaveClicked" />
+        <Button Text="Cancel" />
+
+    </VerticalStackLayout>
+</ContentPage>

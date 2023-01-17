@@ -23,6 +23,16 @@ namespace boberto_launcher_modpack_editor
             {
                 Directory.CreateDirectory(outPath);
             }
+            var path = Path.Combine(outPath, "README.MD");
+            File.WriteAllText(path, "# Default client files");
+        }
+
+        public static void CreateClientModdedFiles(string outPath)
+        {
+            if (Directory.Exists(outPath) == false)
+            {
+                Directory.CreateDirectory(outPath);
+            }
             var path = Path.Combine(outPath, "launcher_profiles.json");
             File.WriteAllText(path, "{}");
         }
