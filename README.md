@@ -2,7 +2,7 @@
 
 ### This repository is a refactor and new release of https://github.com/brutalzinn/CriadorDeMods
 
-# Features
+# Features still development
 
 - Client/Server creator foreach modpack
 - ModPack editor especify for easily mod list creation
