@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="boberto_launcher_modpack_editor.ModPackPage"
              Title="ModPack Assistant"
-                         BackgroundImageSource="background_dirt.webp"
+           BackgroundImageSource="background_dirt.webp"
 
              >
     <VerticalStackLayout
