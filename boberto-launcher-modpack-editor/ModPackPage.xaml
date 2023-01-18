@@ -2,7 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="boberto_launcher_modpack_editor.ModPackPage"
-             Title="ModPack Assistant">
+             Title="ModPack Assistant"
+                         BackgroundImageSource="background_dirt.webp"
+
+             >
     <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
@@ -55,8 +58,9 @@
             HorizontalOptions="Center" />
                     <CheckBox
         x:Name="isVerifyMods"/>
-                    <Entry
-              MaxLength="20"
+                <Editor
+                 WidthRequest="250"
+                HeightRequest="100"
                 Placeholder="crash-reports, logs, resourcepacks, saves, options.txt" 
                 ToolTipProperties.Text="Files or Dirs that Boberto Launcher will ignore when Check Files enabled"
               x:Name="Ignored" />

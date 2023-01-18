@@ -24,16 +24,26 @@ namespace boberto_launcher_modpack_editor.Models
         public string Description { get; set; }
         public string Img { get; set; }
         public IEnumerable<string> Ignored { get; set; }
+        /// <summary>
+        /// local launcher config
+        /// </summary>
         public List<MinecraftFile> Files { get; set; }
         public ModPack()
         {
             if (Id is null)
                 Id = Guid.NewGuid().ToString();
         }
-
+        public void RemoveModPackFiles(string directory)
+        {
+            var modpackDir = Path.Combine(Utils.GetModPacksDir(), directory);
+            var clientFolder = Path.Combine(modpackDir, Utils.ClientFolder);
+            var serverFolder = Path.Combine(modpackDir, Utils.ServerFolder);
+            Utils.DeleteAllFilesDir(clientFolder);
+            Utils.DeleteAllFilesDir(serverFolder);
+        }
         public void Create()
         {
-            var modpackDir = Path.Combine(Utils.GetModPacksDir(), Name);
+            var modpackDir = Path.Combine(Utils.GetModPacksDir(), Directory);
             var clientFolder = Path.Combine(modpackDir, Utils.ClientFolder);
             var serverFolder = Path.Combine(modpackDir, Utils.ServerFolder);
             Utils.CreateClientDefaultFiles(clientFolder);
@@ -42,7 +52,7 @@ namespace boberto_launcher_modpack_editor.Models
 
         public void CreateModded()
         {
-            var modpackDir = Path.Combine(Utils.GetModPacksDir(), Name);
+            var modpackDir = Path.Combine(Utils.GetModPacksDir(), Directory);
             var clientFolder = Path.Combine(modpackDir, Utils.ClientFolder);
             var serverFolder = Path.Combine(modpackDir, Utils.ServerFolder);
 

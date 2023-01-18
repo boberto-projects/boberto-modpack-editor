@@ -40,12 +40,19 @@
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+		<MauiImage Update="Resources\Images\background.svg" Resize="false" />
+		<MauiImage Update="Resources\Images\boberto_logo.png" Resize="false" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Images\background_dirt.webp" />
+	  <None Remove="Resources\Images\boberto_logo.png" />
 	</ItemGroup>
 
 	<ItemGroup>

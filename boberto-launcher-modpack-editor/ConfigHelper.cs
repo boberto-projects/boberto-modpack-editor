@@ -36,12 +36,34 @@ namespace boberto_launcher_modpack_editor
             var configJson = JsonSerializer.Serialize(configModel);
             File.WriteAllText(configFile, configJson);
         }
-        public static bool Exists(ModPack modpack)
+        public static bool ModPackExists(ModPack modpack)
         {
             var config = LoadConfigFile();
             var modPackList = config.ModPacks;
             var modPackExists = modPackList.FirstOrDefault(x => x.Id.Equals(modpack.Id)) != null;
             return modPackExists;
+        }
+        public static ModPack? LoadModPack(ModPack modpack)
+        {
+            var config = LoadConfigFile();
+            var modPackList = config.ModPacks;
+            var modPackElement = modPackList.FirstOrDefault(x => x.Id.Equals(modpack.Id));
+            if (modPackElement != null)
+            {
+                return modPackElement;
+            }
+            return null;
+        }
+        public static ModPack? LoadModPackById(string id)
+        {
+            var config = LoadConfigFile();
+            var modPackList = config.ModPacks;
+            var modPackElement = modPackList.FirstOrDefault(x => x.Id.Equals(id));
+            if (modPackElement != null)
+            {
+                return modPackElement;
+            }
+            return null;
         }
         public static void SaveModPack(ModPack modpack)
         {

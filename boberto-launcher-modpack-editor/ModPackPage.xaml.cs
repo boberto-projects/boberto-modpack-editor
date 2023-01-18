@@ -13,6 +13,10 @@ public partial class ModPackPage : ContentPage
     }
     public void LoadFields()
     {
+        if (CurrentModPack == null)
+        {
+            return;
+        }
         Id.Text = CurrentModPack.Id;
         Name.Text = CurrentModPack.Name;
         isModded.IsChecked = CurrentModPack.IsModded;
@@ -23,12 +27,12 @@ public partial class ModPackPage : ContentPage
         serverPort.Text = CurrentModPack.ServerPort.ToString();
         directory.Text = CurrentModPack.Directory;
         minecraftVersion.Text = CurrentModPack.MinecraftVersion;
-
+        Ignored.Text = string.Join(",", CurrentModPack.Ignored);
         Author.Text = CurrentModPack.Author;
         Description.Text = CurrentModPack.Description;
         img.Text = CurrentModPack.Img;
     }
-    private void SaveClicked(object sender, EventArgs e)
+    private async void SaveClicked(object sender, EventArgs e)
     {
         CurrentModPack.Name = Name.Text;
         CurrentModPack.IsModded = isModded.IsChecked;
@@ -37,17 +41,25 @@ public partial class ModPackPage : ContentPage
         CurrentModPack.IsJava = isJava.IsChecked;
         CurrentModPack.ServerIp = serverIp.Text;
         CurrentModPack.ServerPort = int.Parse(serverPort.Text);
-        CurrentModPack.Directory = directory.Text;
         CurrentModPack.MinecraftVersion = minecraftVersion.Text;
-        CurrentModPack.Ignored = Ignored.Text.Split(",");
+        CurrentModPack.Ignored = string.IsNullOrEmpty(Ignored.Text) == false ? Ignored.Text.Split(",") : new List<string>();
         CurrentModPack.Author = Author.Text;
         CurrentModPack.Description = Description.Text;
         CurrentModPack.Img = img.Text;
-        if (ConfigHelper.Exists(CurrentModPack))
+        //if (ConfigHelper.Exists(CurrentModPack))
+        //{
+        //    CurrentModPack.Create();
+        //}
+        if (CurrentModPack.Directory != directory.Text)
         {
-            CurrentModPack.Create();
+            var newDirName = directory.Text;
+            CurrentModPack.RemoveModPackFiles(newDirName);
+            CurrentModPack.Directory = directory.Text;
         }
+        CurrentModPack.Create();
         ConfigHelper.SaveModPack(CurrentModPack);
+        await Navigation.PopAsync();
+
     }
     private async void CancelClicked(object sender, EventArgs e)
     {

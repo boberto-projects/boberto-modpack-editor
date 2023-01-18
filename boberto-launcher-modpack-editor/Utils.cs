@@ -53,5 +53,13 @@ namespace boberto_launcher_modpack_editor
             var path = Path.Combine(outPath, "README.md");
             File.WriteAllText(path, "# Server files");
         }
+        public static void DeleteAllFilesDir(string path)
+        {
+            if (Directory.Exists(path) == false)
+            {
+                return;
+            }
+            Directory.Delete(path, true);
+        }
     }
 }

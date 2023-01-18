@@ -8,33 +8,45 @@ namespace boberto_launcher_modpack_editor;
 public partial class MainPage : ContentPage
 {
     public ObservableCollection<ModPack> LocalModPacks { get; set; }
+    public ModPack CurrentModPack { get; set; }
     public MainPage()
     {
         InitializeComponent();
+        LoadModPacksList();
+
+        //string[] modpacksDir = Directory.GetDirectories(modpackDir);
+        //foreach (var modpack in modpacksDir)
+        //{
+        //    var modpackFiles = Directory.EnumerateFiles(modpack, "*", SearchOption.AllDirectories);
+        //    var files = new List<MinecraftFile>();
+
+        //    foreach (var modpackFile in modpackFiles)
+        //    {
+        //        files.Add(new MinecraftFile(modpackFile, modpack));
+        //    }
+        //    LocalModPacks.Add(new ModPack()
+        //    {
+        //        Name = new DirectoryInfo(modpack).Name,
+        //        Files = files
+        //    });
+        //}
+
+        this.BindingContext = this;
+    }
+    public void LoadModPacksList()
+    {
         LocalModPacks = new ObservableCollection<ModPack>();
         var modpackDir = Utils.GetModPacksDir();
         ConfigHelper.InitConfigFile();
+        var modpacks = ConfigHelper.LoadConfigFile().ModPacks;
         if (Directory.Exists(modpackDir) == false)
         {
             Directory.CreateDirectory(modpackDir);
         }
-        string[] modpacksDir = Directory.GetDirectories(modpackDir);
-        foreach (var modpack in modpacksDir)
+        foreach (var item in modpacks)
         {
-            var modpackFiles = Directory.EnumerateFiles(modpack, "*", SearchOption.AllDirectories);
-            var files = new List<MinecraftFile>();
-
-            foreach (var modpackFile in modpackFiles)
-            {
-                files.Add(new MinecraftFile(modpackFile, modpack));
-            }
-            LocalModPacks.Add(new ModPack()
-            {
-                Name = new DirectoryInfo(modpack).Name,
-                Files = files
-            });
+            LocalModPacks.Add(item);
         }
-        this.BindingContext = this;
     }
     private void DragGestureRecognizer_DragStarting_1(object sender, DragStartingEventArgs e)
     {
@@ -55,9 +67,20 @@ public partial class MainPage : ContentPage
     private async void AddModPack(object sender, EventArgs e)
     {
         var modPack = new ModPack();
+        modPack.Ignored = new List<string>();
         //modPack.Create();
         await Navigation.PushAsync(new ModPackPage(modPack));
 
+    }
+    private async void EditModPack(object sender, EventArgs e)
+    {
+        //modPack.Create();
+        if (CurrentModPack == null)
+        {
+            DisplayAlert("Warning", "Modpack cant be found for this selectable value", "OK");
+            return;
+        }
+        await Navigation.PushAsync(new ModPackPage(CurrentModPack));
     }
     private void RemoveModPack(object sender, EventArgs e)
     {

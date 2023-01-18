@@ -1,25 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="boberto_launcher_modpack_editor.MainPage">
-    
+             x:Class="boberto_launcher_modpack_editor.MainPage"
+            Title="ModPack Assistant 1.0.0 - MAUI"
 
+            BackgroundImageSource="background_dirt.webp"
+             
+             >
+        
     <ScrollView>
+        
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Center">
-            <HorizontalStackLayout>
-                <Picker Title="Select ModPack" x:Name="PickerModPack" ItemsSource="{Binding LocalModPacks}" SelectedItem="{Binding CurrentModPack}"/>
-                <Button Text="Add" Clicked="AddModPack"/>
-                <Button Text="Remove" Clicked="RemoveModPack"/>
+            <Image
+                Source="boberto_logo.png"
+                HeightRequest="200"          
+                WidthRequest="200"           
+                />
+
+
+            <HorizontalStackLayout 
+                HorizontalOptions="Center"
+>           
+                <Picker Title="Select ModPack" 
+                        BackgroundColor="Gray"
+                        TextColor="White"
+                        x:Name="PickerModPack" 
+                        ItemsSource="{Binding LocalModPacks}"
+                        SelectedItem="{Binding CurrentModPack}"/>
+                <Button 
+                    BackgroundColor="Gray"
+                    TextColor="White"
+                    Text="Edit" 
+                    Clicked="EditModPack"
+                    />
+                <Button 
+                    BackgroundColor="Gray"
+                    TextColor="White"
+                    Text="Add" 
+                    Clicked="AddModPack"/>
+                <Button 
+                    BackgroundColor="Gray"
+                    TextColor="White"
+                    Text="Remove" 
+                    Clicked="RemoveModPack"/>
             </HorizontalStackLayout>
             <Label
-                Text="{Binding CurrentModPack.Name}"
+                Text="{Binding Source={x:Reference PickerModPack}, Path=SelectedItem}"
                 TextColor="White"
                 FontSize="32"
                 HorizontalOptions="Center" />
+
         </VerticalStackLayout>
+        
     </ScrollView>
 
 </ContentPage>
