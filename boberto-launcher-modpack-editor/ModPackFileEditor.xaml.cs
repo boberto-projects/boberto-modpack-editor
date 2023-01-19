@@ -105,7 +105,10 @@ public partial class ModPackFileEditor : ContentPage
         }
         foreach (var item in FilesToRemove)
         {
-            File.Delete(item.FullPath);
+            if (File.Exists(item.FullPath))
+            {
+                File.Delete(item.FullPath);
+            }
         }
         await Navigation.PopAsync();
     }

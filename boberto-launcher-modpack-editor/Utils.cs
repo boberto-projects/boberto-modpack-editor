@@ -63,18 +63,26 @@ namespace boberto_launcher_modpack_editor
         }
         public static void MoveFileToClient(string path, string modPackDir)
         {
+            if (File.Exists(path) == false)
+            {
+                return;
+            }
             var outputPath = Path.Combine(GetModPacksDir(), modPackDir, ClientFolder);
             var file = new FileInfo(path);
             var targetFilePath = Path.Combine(outputPath, file.Name);
-            file.CopyTo(targetFilePath, true);
+            file.MoveTo(targetFilePath, true);
 
         }
         public static void MoveFileToServer(string path, string modPackDir)
         {
+            if (File.Exists(path) == false)
+            {
+                return;
+            }
             var outputPath = Path.Combine(GetModPacksDir(), modPackDir, ServerFolder);
             var file = new FileInfo(path);
             var targetFilePath = Path.Combine(outputPath, file.Name);
-            file.CopyTo(targetFilePath, true);
+            file.MoveTo(targetFilePath, true);
         }
 
         /// <summary>
