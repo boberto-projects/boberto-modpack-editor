@@ -135,15 +135,25 @@
                 Placeholder="Minecraft version. Example: 1.12.2, 1.16.5" 
               x:Name="minecraftVersion" />
                 <Button 
-                TextColor="Black"
+                BackgroundColor="Gray"
+                TextColor="White"
                 Text="Forge Installer Assistant"
               Clicked="ForgeInstallerAssistantClicked"
             />
+                <Button Text="Files editor"
+                Clicked="FilesEditorClicked" 
+                BackgroundColor="Gray"
+                TextColor="White"
+                />
                 <Button Text="Save"
-                    Clicked="SaveClicked" 
-                    />
+                Clicked="SaveClicked" 
+                BackgroundColor="Gray"
+                TextColor="White"
+                />
                 <Button 
                 Text="Cancel"
+                BackgroundColor="Gray"
+                TextColor="White"
                 Clicked="CancelClicked" />
 
             </VerticalStackLayout>

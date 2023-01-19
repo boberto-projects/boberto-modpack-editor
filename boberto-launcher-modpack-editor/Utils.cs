@@ -20,7 +20,7 @@ namespace boberto_launcher_modpack_editor
         public static string GetConfigFile() { return Path.Combine(GetDefaultAppDomain(), ConfigFile); }
         public static string GetModPacksDir()
         {
-            var localApp = AppDomain.CurrentDomain.BaseDirectory;
+            var localApp = GetDefaultAppDomain();
             var modpackDir = Path.Combine(localApp, ModPackDir);
             return modpackDir;
         }

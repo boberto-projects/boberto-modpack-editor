@@ -70,6 +70,15 @@ public partial class ModPackPage : ContentPage
     {
 
     }
+    private async void FilesEditorClicked(object sender, EventArgs e)
+    {
+        if (CurrentModPack == null)
+        {
+            DisplayAlert("Warning", "Modpack cant be found for this selectable value", "OK");
+            return;
+        }
+        await Navigation.PushAsync(new ModPackFileEditor(CurrentModPack));
+    }
 
 
 }

@@ -21,7 +21,6 @@ namespace boberto_launcher_modpack_editor.Models
             this.FullPath = path;
             this.RelativePath = Path.GetRelativePath(relativePath, path);
             this.Version = version;
-
             this.Type = GetFileType();
             this.Enviroment = GetEnviromentType();
         }
@@ -44,11 +43,15 @@ namespace boberto_launcher_modpack_editor.Models
 
         private TypeEnviroment GetEnviromentType()
         {
-            if (this.RelativePath.StartsWith("client"))
+            if (this.RelativePath.EndsWith("client"))
             {
                 return TypeEnviroment.Client;
             }
             return TypeEnviroment.Server;
+        }
+        public override string ToString()
+        {
+            return this.Name;
         }
     }
 }
