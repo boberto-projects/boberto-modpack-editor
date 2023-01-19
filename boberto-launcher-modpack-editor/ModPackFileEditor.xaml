@@ -45,7 +45,11 @@
     </VerticalStackLayout>
 
             <VerticalStackLayout>
-                <Label 
+                <VerticalStackLayout.GestureRecognizers>
+                    <DropGestureRecognizer AllowDrop="True"  Drop="DropGestureRecognizer_Drop_Client" />
+                </VerticalStackLayout.GestureRecognizers>
+
+                    <Label 
             Text="Client Files"
             FontSize="Subtitle"
             VerticalOptions="Center" 
@@ -54,12 +58,19 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Label  FontSize="Medium"
-                           Text="{Binding Name}"    >
-                                    <Label.GestureRecognizers>
-                                        <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" />
-                                    </Label.GestureRecognizers>
-                                </Label>
+                                <StackLayout>
+                                    
+                                    <Frame>
+                                        <Label  FontSize="Medium"
+                           Text="{Binding Name}" >
+                                            <Label.GestureRecognizers>
+                                                <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    
+                                    </Frame>
+                                    <Button Text="+" Clicked="OnAddClientFilesClicked" />
+                                </StackLayout>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -67,6 +78,9 @@
             </VerticalStackLayout>
 
             <VerticalStackLayout>
+                <VerticalStackLayout.GestureRecognizers>
+                    <DropGestureRecognizer AllowDrop="True"  Drop="DropGestureRecognizer_Drop_Server" />
+                </VerticalStackLayout.GestureRecognizers>
                 <Label 
             Text="Server Files"
             FontSize="Subtitle"
@@ -76,25 +90,51 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Label  FontSize="Medium"
+                                <StackLayout>
+                                   
+
+                                        <Frame>
+                                        <Label  FontSize="Medium"
                            Text="{Binding Name}"    >
-                                    <Label.GestureRecognizers>
-                                        <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" />
-                                    </Label.GestureRecognizers>
-                                </Label>
+                                            <Label.GestureRecognizers>
+                                                <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+
+
+
+
+                                    </Frame>
+
+                                    <Button Text="+" Clicked="OnAddServerFilesClicked"></Button>
+
+                                </StackLayout>
+                                  
+
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
+                    
                 </ListView>
             </VerticalStackLayout>
         </HorizontalStackLayout>
-        <Frame Margin="20" BackgroundColor="White">
+        <Frame Margin="20" BackgroundColor="Red">
                 <Frame.GestureRecognizers>
-                    <DropGestureRecognizer AllowDrop="True"  Drop="DropGestureRecognizer_Drop" />
+                    <DropGestureRecognizer AllowDrop="True"  Drop="DropGestureRecognizer_Drop_Delete" />
                 </Frame.GestureRecognizers>
             </Frame>
 
 
+        <Button Text="Save"
+                Clicked="SaveClicked" 
+                BackgroundColor="Gray"
+                TextColor="White"
+                />
+        <Button 
+                Text="Cancel"
+                BackgroundColor="Gray"
+                TextColor="White"
+                Clicked="CancelClicked" />
 
 
     </VerticalStackLayout>
