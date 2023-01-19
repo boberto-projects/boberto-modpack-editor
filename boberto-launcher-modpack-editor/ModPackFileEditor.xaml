@@ -11,30 +11,48 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
-
-
         <HorizontalStackLayout
             HorizontalOptions="Center"
             VerticalOptions="Center"
             Spacing="100"
             >
             <VerticalStackLayout>
-                <Label 
+                <VerticalStackLayout.GestureRecognizers>
+                    <DropGestureRecognizer AllowDrop="True" Drop="DragGestureRecognizer_Original" />
+                </VerticalStackLayout.GestureRecognizers>
+            <Label 
             Text="All files"
             FontSize="Subtitle"
-            VerticalOptions="Center" 
+            HorizontalTextAlignment="Center" 
              />
-                <ListView ItemsSource="{Binding Files}">
+                <ListView ItemsSource="{Binding Files}" VerticalScrollBarVisibility="Always" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Label 
-                                    FontSize="Medium"
-                           Text="{Binding Name}"    >
-                                    <Label.GestureRecognizers>
-                                        <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_Original" />
-                                    </Label.GestureRecognizers>
-                                </Label>
+                                <Grid Padding="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.RowSpan="2"
+                           Source="java_icon.png"
+                           Aspect="AspectFill"
+                           HeightRequest="60"
+                           WidthRequest="60" />
+                                    <Label Grid.Column="1"
+                           Text="{Binding Name}"
+                           FontAttributes="Bold" />
+                                    <Label Grid.Row="1"
+                           Grid.Column="1"
+                           Text="Grab me and move to other column!"
+                           FontAttributes="Italic"
+                          HorizontalTextAlignment="Center"
+                           VerticalOptions="End" />
+                                </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -44,33 +62,44 @@
                 <VerticalStackLayout.GestureRecognizers>
                     <DropGestureRecognizer AllowDrop="True"  Drop="DropGestureRecognizer_Drop_Client" />
                 </VerticalStackLayout.GestureRecognizers>
-
-                    <Label 
+                <Label 
             Text="Client Files"
             FontSize="Subtitle"
-            VerticalOptions="Center" 
+            
             HorizontalOptions="Center" />
-                <ListView ItemsSource="{Binding ClientFiles}">
+                <ListView ItemsSource="{Binding ClientFiles}" VerticalScrollBarVisibility="Always" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout>
-                                    
-                                    <Frame>
-                                        <Label  FontSize="Medium"
-                           Text="{Binding Name}" >
-                                            <Label.GestureRecognizers>
-                                                <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" />
-                                            </Label.GestureRecognizers>
-                                        </Label>
-                                    
-                                    </Frame>
-                                    <Button Text="+" Clicked="OnAddClientFilesClicked" />
-                                </StackLayout>
+                                <Grid Padding="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.RowSpan="2"
+                           Source="java_icon.png"
+                           Aspect="AspectFill"
+                           HeightRequest="60"
+                           WidthRequest="60" />
+                                    <Label Grid.Column="1"
+                           Text="{Binding Name}"
+                           FontAttributes="Bold" />
+                                    <Label Grid.Row="1"
+                           Grid.Column="1"
+                           Text="Grab me and move to other column!"
+                           FontAttributes="Italic"
+                          HorizontalTextAlignment="Center"
+                           VerticalOptions="End" />
+                                </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                <Button Text="+" Clicked="OnAddClientFilesClicked" />
             </VerticalStackLayout>
 
             <VerticalStackLayout>
@@ -82,39 +111,45 @@
             FontSize="Subtitle"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-                <ListView ItemsSource="{Binding ServerFiles}">
+                <ListView ItemsSource="{Binding ServerFiles}" VerticalScrollBarVisibility="Always" >
+                    
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout>
-                                   
-
-                                        <Frame>
-                                        <Label  FontSize="Medium"
-                           Text="{Binding Name}"    >
-                                            <Label.GestureRecognizers>
-                                                <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" />
-                                            </Label.GestureRecognizers>
-                                        </Label>
-
-
-
-
-                                    </Frame>
-
-                                    <Button Text="+" Clicked="OnAddServerFilesClicked"></Button>
-
-                                </StackLayout>
-                                  
-
+                                <Grid Padding="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.RowSpan="2"
+                           Source="java_icon.png"
+                           Aspect="AspectFill"
+                           HeightRequest="60"
+                           WidthRequest="60" />
+                                    <Label Grid.Column="1"
+                           Text="{Binding Name}"
+                           FontAttributes="Bold" />
+                                    <Label Grid.Row="1"
+                           Grid.Column="1"
+                           Text="Grab me and move to other column!"
+                           FontAttributes="Italic"
+                          HorizontalTextAlignment="Center"
+                           VerticalOptions="End" />
+                                </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                     
                 </ListView>
+                <Button Text="+" Clicked="OnAddServerFilesClicked"></Button>
+
             </VerticalStackLayout>
         </HorizontalStackLayout>
-        <Frame Margin="20" BackgroundColor="Red">
+        <Frame  BackgroundColor="Red">
                 <Frame.GestureRecognizers>
                     <DropGestureRecognizer AllowDrop="True"  Drop="DropGestureRecognizer_Drop_Delete" />
                 </Frame.GestureRecognizers>

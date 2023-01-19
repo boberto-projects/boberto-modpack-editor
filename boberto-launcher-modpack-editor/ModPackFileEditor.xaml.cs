@@ -26,7 +26,7 @@ public partial class ModPackFileEditor : ContentPage
     }
     public void LoadModPackFiles()
     {
-        var modpackDir = Path.Combine(Utils.GetModPacksDir(), CurrentModPack.Directory);
+        var modpackDir = Utils.GetModPacksDir(CurrentModPack.Directory);
         var modpackFiles = Directory.EnumerateFiles(modpackDir, "*", SearchOption.AllDirectories);
         foreach (var modpack in modpackFiles)
         {
@@ -41,6 +41,17 @@ public partial class ModPackFileEditor : ContentPage
             }
             ServerFiles.Add(item);
         }
+    }
+    private MinecraftFile CreateMinecraftFile(string modpackPath)
+    {
+        var modpackDir = Utils.GetModPacksDir(CurrentModPack.Directory);
+        return new MinecraftFile(modpackPath, modpackDir);
+    }
+    private void AddItemAllList(MinecraftFile minecraftFile)
+    {
+        ClientFiles.Add(minecraftFile);
+        ServerFiles.Add(minecraftFile);
+        Files.Add(minecraftFile);
     }
     private void DragGestureRecognizer_DragStarting(object sender, DragStartingEventArgs e)
     {
@@ -110,12 +121,27 @@ public partial class ModPackFileEditor : ContentPage
         foreach (var file in files)
         {
             Utils.MoveFileToServer(file.FullPath, modpackPath);
+            var minecraftFile = CreateMinecraftFile(file.FullPath);
+            ServerFiles.Add(minecraftFile);
+            Files.Add(minecraftFile);
         }
     }
 
     private async void OnAddClientFilesClicked(object sender, EventArgs e)
     {
-
+        var modpackPath = Utils.GetModPacksDir(CurrentModPack.Directory);
+        PickOptions options = new()
+        {
+            PickerTitle = "Please select a comic file",
+        };
+        var files = await PickAndShow(options);
+        foreach (var file in files)
+        {
+            Utils.MoveFileToClient(file.FullPath, modpackPath);
+            var minecraftFile = CreateMinecraftFile(file.FullPath);
+            ClientFiles.Add(minecraftFile);
+            Files.Add(minecraftFile);
+        }
     }
     private async void OnShowModsFolder(object sender, EventArgs e)
     {

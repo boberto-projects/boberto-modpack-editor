@@ -42,6 +42,7 @@
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 		<MauiImage Update="Resources\Images\background.svg" Resize="false" />
 		<MauiImage Update="Resources\Images\boberto_logo.png" Resize="false" />
+		<MauiImage Update="Resources\Images\java_icon.png" Resize="false" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -53,6 +54,7 @@
 	<ItemGroup>
 	  <None Remove="Resources\Images\background_dirt.webp" />
 	  <None Remove="Resources\Images\boberto_logo.png" />
+	  <None Remove="Resources\Images\java_icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
