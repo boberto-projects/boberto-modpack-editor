@@ -102,6 +102,15 @@ public partial class ModPackFileEditor : ContentPage
     private async void OnAddServerFilesClicked(object sender, EventArgs e)
     {
         var modpackPath = Utils.GetModPacksDir(CurrentModPack.Directory);
+        PickOptions options = new()
+        {
+            PickerTitle = "Please select a comic file",
+        };
+        var files = await PickAndShow(options);
+        foreach (var file in files)
+        {
+            Utils.MoveFileToServer(file.FullPath, modpackPath);
+        }
     }
 
     private async void OnAddClientFilesClicked(object sender, EventArgs e)
@@ -137,19 +146,11 @@ public partial class ModPackFileEditor : ContentPage
     /// </summary>
     /// <param name="options"></param>
     /// <returns></returns>
-    private async Task<FileResult> PickAndShow(PickOptions options)
+    private async Task<IEnumerable<FileResult>> PickAndShow(PickOptions options)
     {
         try
         {
-            var result = await FilePicker.Default.PickAsync(options);
-            if (result != null)
-            {
-                if (result.FileName.EndsWith("jar", StringComparison.OrdinalIgnoreCase) ||
-                    result.FileName.EndsWith("java", StringComparison.OrdinalIgnoreCase))
-                {
-
-                }
-            }
+            var result = await FilePicker.Default.PickMultipleAsync(options);
 
             return result;
         }
