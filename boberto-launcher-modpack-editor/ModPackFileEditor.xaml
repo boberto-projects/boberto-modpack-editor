@@ -11,22 +11,91 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
 
+
+
+        <HorizontalStackLayout
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            
+            Spacing="100"
+          
+            >
+            <VerticalStackLayout>
+                
                 <Label 
             Text="All files"
             FontSize="Subtitle"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-
+             />
+                
                 <ListView ItemsSource="{Binding Files}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Label Text="{Binding Name}"/>
+                            <ViewCell>
+                                <Label  FontSize="Medium"
+                           Text="{Binding Name}"    >
+                                    <Label.GestureRecognizers>
+                                        <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+    </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label 
+            Text="Client Files"
+            FontSize="Subtitle"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+                <ListView ItemsSource="{Binding ClientFiles}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label  FontSize="Medium"
+                           Text="{Binding Name}"    >
+                                    <Label.GestureRecognizers>
+                                        <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label 
+            Text="Server Files"
+            FontSize="Subtitle"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+                <ListView ItemsSource="{Binding ServerFiles}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label  FontSize="Medium"
+                           Text="{Binding Name}"    >
+                                    <Label.GestureRecognizers>
+                                        <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" />
+                                    </Label.GestureRecognizers>
+                                </Label>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </VerticalStackLayout>
+        </HorizontalStackLayout>
+        <Frame Margin="20" BackgroundColor="White">
+                <Frame.GestureRecognizers>
+                    <DropGestureRecognizer AllowDrop="True"  Drop="DropGestureRecognizer_Drop" />
+                </Frame.GestureRecognizers>
+            </Frame>
 
 
-        
+
 
     </VerticalStackLayout>
 </ContentPage>

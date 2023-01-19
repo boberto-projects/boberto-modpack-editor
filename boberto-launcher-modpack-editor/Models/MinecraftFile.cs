@@ -24,6 +24,7 @@ namespace boberto_launcher_modpack_editor.Models
             this.Type = GetFileType();
             this.Enviroment = GetEnviromentType();
         }
+        public MinecraftFile() { }
         private Type GetFileType()
         {
             if (this.FullPath.Contains("libraries"))
@@ -43,7 +44,7 @@ namespace boberto_launcher_modpack_editor.Models
 
         private TypeEnviroment GetEnviromentType()
         {
-            if (this.RelativePath.EndsWith("client"))
+            if (this.RelativePath.StartsWith("client"))
             {
                 return TypeEnviroment.Client;
             }

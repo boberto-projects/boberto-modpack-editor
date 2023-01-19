@@ -13,24 +13,6 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         LoadModPacksList();
-
-        //string[] modpacksDir = Directory.GetDirectories(modpackDir);
-        //foreach (var modpack in modpacksDir)
-        //{
-        //    var modpackFiles = Directory.EnumerateFiles(modpack, "*", SearchOption.AllDirectories);
-        //    var files = new List<MinecraftFile>();
-
-        //    foreach (var modpackFile in modpackFiles)
-        //    {
-        //        files.Add(new MinecraftFile(modpackFile, modpack));
-        //    }
-        //    LocalModPacks.Add(new ModPack()
-        //    {
-        //        Name = new DirectoryInfo(modpack).Name,
-        //        Files = files
-        //    });
-        //}
-
         this.BindingContext = this;
     }
     public void LoadModPacksList()
@@ -48,21 +30,7 @@ public partial class MainPage : ContentPage
             LocalModPacks.Add(item);
         }
     }
-    private void DragGestureRecognizer_DragStarting_1(object sender, DragStartingEventArgs e)
-    {
-        var label = (sender as Element)?.Parent as Label;
-        e.Data.Properties.Add("Text", label.Text);
-    }
 
-    private void DropGestureRecognizer_Drop_1(object sender, DropEventArgs e)
-    {
-        var data = e.Data.Properties["Text"].ToString();
-        var frame = (sender as Element)?.Parent as Frame;
-        frame.Content = new Label
-        {
-            Text = data
-        };
-    }
 
     private async void AddModPack(object sender, EventArgs e)
     {

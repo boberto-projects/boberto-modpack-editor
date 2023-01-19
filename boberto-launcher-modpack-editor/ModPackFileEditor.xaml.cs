@@ -12,21 +12,47 @@ public partial class ModPackFileEditor : ContentPage
 
     public ModPackFileEditor(ModPack modpack)
     {
+        Files = new ObservableCollection<MinecraftFile>();
+        ClientFiles = new ObservableCollection<MinecraftFile>();
+        ServerFiles = new ObservableCollection<MinecraftFile>();
         InitializeComponent();
+
         CurrentModPack = modpack;
+        this.BindingContext = this;
+
         LoadModPackFiles();
     }
     public void LoadModPackFiles()
     {
-        Files = new ObservableCollection<MinecraftFile>();
-        ClientFiles = new ObservableCollection<MinecraftFile>();
-        ServerFiles = new ObservableCollection<MinecraftFile>();
         var modpackDir = Path.Combine(Utils.GetModPacksDir(), CurrentModPack.Directory);
         var modpackFiles = Directory.EnumerateFiles(modpackDir, "*", SearchOption.AllDirectories);
         foreach (var modpack in modpackFiles)
         {
             Files.Add(new MinecraftFile(modpack, modpackDir));
         }
-        this.BindingContext = this;
+        foreach (var item in Files)
+        {
+            if (item.Enviroment.Equals(TypeEnviroment.Client))
+            {
+                ClientFiles.Add(item);
+                continue;
+            }
+            ServerFiles.Add(item);
+        }
+    }
+    private void DragGestureRecognizer_DragStarting(object sender, DragStartingEventArgs e)
+    {
+        var label = (sender as Element)?.Parent as Label;
+        e.Data.Properties.Add("Text", label.Text);
+    }
+
+    private void DropGestureRecognizer_Drop(object sender, DropEventArgs e)
+    {
+        var data = e.Data.Properties["Text"].ToString();
+        var frame = (sender as Element)?.Parent as Frame;
+        frame.Content = new Label
+        {
+            Text = data
+        };
     }
 }
