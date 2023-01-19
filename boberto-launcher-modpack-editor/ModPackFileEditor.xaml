@@ -131,6 +131,11 @@
                 BackgroundColor="Gray"
                 TextColor="White"
                 Clicked="CancelClicked" />
+        <Button 
+                Text="Mods folder"
+                BackgroundColor="Gray"
+                TextColor="White"
+                Clicked="OnShowModsFolder" />
 
 
     </VerticalStackLayout>

@@ -1,5 +1,6 @@
 using boberto_launcher_modpack_editor.Models;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace boberto_launcher_modpack_editor;
 
@@ -100,12 +101,17 @@ public partial class ModPackFileEditor : ContentPage
     }
     private async void OnAddServerFilesClicked(object sender, EventArgs e)
     {
-
+        var modpackPath = Utils.GetModPacksDir(CurrentModPack.Directory);
     }
 
     private async void OnAddClientFilesClicked(object sender, EventArgs e)
     {
 
+    }
+    private async void OnShowModsFolder(object sender, EventArgs e)
+    {
+        var modpackPath = Utils.GetModPacksDir(CurrentModPack.Directory);
+        Process.Start("explorer.exe", modpackPath);
     }
     private async void SaveClicked(object sender, EventArgs e)
     {
@@ -125,6 +131,34 @@ public partial class ModPackFileEditor : ContentPage
             }
         }
         await Navigation.PopAsync();
+    }
+    /// <summary>
+    /// https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/storage/file-picker?view=net-maui-7.0&tabs=windows
+    /// </summary>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    private async Task<FileResult> PickAndShow(PickOptions options)
+    {
+        try
+        {
+            var result = await FilePicker.Default.PickAsync(options);
+            if (result != null)
+            {
+                if (result.FileName.EndsWith("jar", StringComparison.OrdinalIgnoreCase) ||
+                    result.FileName.EndsWith("java", StringComparison.OrdinalIgnoreCase))
+                {
+
+                }
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            // The user canceled or something went wrong
+        }
+
+        return null;
     }
     private async void CancelClicked(object sender, EventArgs e)
     {

@@ -140,7 +140,7 @@
                 Text="Forge Installer Assistant"
               Clicked="ForgeInstallerAssistantClicked"
             />
-                <Button Text="Files editor"
+                <Button Text="Mods list editor"
                 Clicked="FilesEditorClicked" 
                 BackgroundColor="Gray"
                 TextColor="White"

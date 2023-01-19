@@ -24,6 +24,12 @@ namespace boberto_launcher_modpack_editor
             var modpackDir = Path.Combine(localApp, ModPackDir);
             return modpackDir;
         }
+        public static string GetModPacksDir(string directory)
+        {
+            var localApp = GetDefaultAppDomain();
+            var modpackDir = Path.Combine(localApp, ModPackDir, directory);
+            return modpackDir;
+        }
         public static void CreateClientDefaultFiles(string outPath)
         {
             if (Directory.Exists(outPath) == false)
@@ -61,28 +67,30 @@ namespace boberto_launcher_modpack_editor
             }
             Directory.Delete(path, true);
         }
-        public static void MoveFileToClient(string path, string modPackDir)
+        public static bool MoveFileToClient(string path, string modPackDir)
         {
             if (File.Exists(path) == false)
             {
-                return;
+                return false;
             }
             var outputPath = Path.Combine(GetModPacksDir(), modPackDir, ClientFolder);
             var file = new FileInfo(path);
             var targetFilePath = Path.Combine(outputPath, file.Name);
             file.MoveTo(targetFilePath, true);
+            return true;
 
         }
-        public static void MoveFileToServer(string path, string modPackDir)
+        public static bool MoveFileToServer(string path, string modPackDir)
         {
             if (File.Exists(path) == false)
             {
-                return;
+                return false;
             }
             var outputPath = Path.Combine(GetModPacksDir(), modPackDir, ServerFolder);
             var file = new FileInfo(path);
             var targetFilePath = Path.Combine(outputPath, file.Name);
             file.MoveTo(targetFilePath, true);
+            return true;
         }
 
         /// <summary>
