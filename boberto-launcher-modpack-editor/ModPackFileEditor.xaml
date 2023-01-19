@@ -16,34 +16,30 @@
         <HorizontalStackLayout
             HorizontalOptions="Center"
             VerticalOptions="Center"
-            
             Spacing="100"
-          
             >
             <VerticalStackLayout>
-                
                 <Label 
             Text="All files"
             FontSize="Subtitle"
             VerticalOptions="Center" 
              />
-                
                 <ListView ItemsSource="{Binding Files}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Label  FontSize="Medium"
+                                <Label 
+                                    FontSize="Medium"
                            Text="{Binding Name}"    >
                                     <Label.GestureRecognizers>
-                                        <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" />
+                                        <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_Original" />
                                     </Label.GestureRecognizers>
                                 </Label>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-    </VerticalStackLayout>
-
+            </VerticalStackLayout>
             <VerticalStackLayout>
                 <VerticalStackLayout.GestureRecognizers>
                     <DropGestureRecognizer AllowDrop="True"  Drop="DropGestureRecognizer_Drop_Client" />

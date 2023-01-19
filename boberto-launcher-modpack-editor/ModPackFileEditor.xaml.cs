@@ -48,40 +48,54 @@ public partial class ModPackFileEditor : ContentPage
         e.Data.Properties.Add("Text", item);
     }
 
+    private void DragGestureRecognizer_Original(object sender, DragStartingEventArgs e)
+    {
+        var item = (sender as BindableObject).BindingContext as MinecraftFile;
+        e.Data.Properties.Add("Text", item);
+        e.Data.Properties.Add("Origem", true);
+    }
     private void DropGestureRecognizer_Drop_Server(object sender, DropEventArgs e)
     {
-        // var item = (sender as BindableObject).BindingContext as MinecraftFile;
-        var frame = (sender as Element)?.Parent as Frame;
+        var isOriginalListFile = e.Data.Properties.ContainsKey("Origem");
         var item = e.Data.Properties["Text"] as MinecraftFile;
         if (item != null)
         {
+            if (isOriginalListFile == false && item.Enviroment.Equals(TypeEnviroment.Client))
+            {
+                item.Enviroment = TypeEnviroment.Server;
+                ClientFiles.Remove(item);
+            }
             ServerFiles.Add(item);
         }
     }
     private void DropGestureRecognizer_Drop_Client(object sender, DropEventArgs e)
     {
-        // var item = (sender as BindableObject).BindingContext as MinecraftFile;
-        var frame = (sender as Element)?.Parent as Frame;
+        var isOriginalListFile = e.Data.Properties.ContainsKey("Origem");
         var item = e.Data.Properties["Text"] as MinecraftFile;
         if (item != null)
         {
+            if (isOriginalListFile == false && item.Enviroment.Equals(TypeEnviroment.Server))
+            {
+                item.Enviroment = TypeEnviroment.Client;
+                ServerFiles.Remove(item);
+            }
             ClientFiles.Add(item);
         }
     }
     private void DropGestureRecognizer_Drop_Delete(object sender, DropEventArgs e)
     {
-        // var item = (sender as BindableObject).BindingContext as MinecraftFile;
-        var frame = (sender as Element)?.Parent as Frame;
         var item = e.Data.Properties["Text"] as MinecraftFile;
-        if (item != null && FilesToRemove.Contains(item) == false)
+        if (item != null)
         {
-            FilesToRemove.Add(item);
             if (item.Enviroment.Equals(TypeEnviroment.Client))
             {
                 ClientFiles.Remove(item);
-                return;
             }
-            ServerFiles.Remove(item);
+            if (item.Enviroment.Equals(TypeEnviroment.Server))
+            {
+                ServerFiles.Remove(item);
+            }
+            FilesToRemove.Add(item);
         }
     }
     private async void OnAddServerFilesClicked(object sender, EventArgs e)
