@@ -14,11 +14,7 @@
             Spacing="25"
             Padding="30,0"
             VerticalOptions="Center">
-            <Image
-                Source="boberto_logo.png"
-                HeightRequest="200"          
-                WidthRequest="200"           
-                />
+   
 
 
             <HorizontalStackLayout 

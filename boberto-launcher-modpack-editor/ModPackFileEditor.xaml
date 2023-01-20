@@ -17,43 +17,47 @@
             Spacing="100"
             >
             <VerticalStackLayout>
-                <VerticalStackLayout.GestureRecognizers>
-                    <DropGestureRecognizer AllowDrop="True" Drop="DragGestureRecognizer_Original" />
-                </VerticalStackLayout.GestureRecognizers>
-            <Label 
+                <Label 
             Text="All files"
             FontSize="Subtitle"
             HorizontalTextAlignment="Center" 
              />
-                <ListView ItemsSource="{Binding Files}" VerticalScrollBarVisibility="Always" >
+                <ListView ItemsSource="{Binding Files}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid Padding="10">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.RowSpan="2"
+                                <ScrollView>
+
+                                    <Grid Padding="10">
+                                        <Grid.GestureRecognizers>
+                                            <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_Original" />
+                                        </Grid.GestureRecognizers>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.RowSpan="2"
                            Source="java_icon.png"
                            Aspect="AspectFill"
                            HeightRequest="60"
                            WidthRequest="60" />
-                                    <Label Grid.Column="1"
+                                        <Label Grid.Column="1"
                            Text="{Binding Name}"
                            FontAttributes="Bold" />
-                                    <Label Grid.Row="1"
+                                        <Label Grid.Row="1"
                            Grid.Column="1"
                            Text="Grab me and move to other column!"
                            FontAttributes="Italic"
                           HorizontalTextAlignment="Center"
                            VerticalOptions="End" />
-                                </Grid>
+                                    </Grid>
+                                </ScrollView>
                             </ViewCell>
+
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
@@ -67,11 +71,14 @@
             FontSize="Subtitle"
             
             HorizontalOptions="Center" />
-                <ListView ItemsSource="{Binding ClientFiles}" VerticalScrollBarVisibility="Always" >
+                <ListView ItemsSource="{Binding ClientFiles}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <Grid Padding="10">
+                                    <Grid.GestureRecognizers>
+                                        <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" />
+                                    </Grid.GestureRecognizers>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
@@ -111,12 +118,18 @@
             FontSize="Subtitle"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-                <ListView ItemsSource="{Binding ServerFiles}" VerticalScrollBarVisibility="Always" >
+                <ListView ItemsSource="{Binding ServerFiles}"
+               VerticalOptions="Fill"
+                MinimumHeightRequest="100"
+                          >
                     
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <Grid Padding="10">
+                                    <Grid.GestureRecognizers>
+                                        <DragGestureRecognizer CanDrag="True" DragStarting="DragGestureRecognizer_DragStarting" />
+                                    </Grid.GestureRecognizers>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />

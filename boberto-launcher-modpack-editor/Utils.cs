@@ -76,7 +76,7 @@ namespace boberto_launcher_modpack_editor
             var outputPath = Path.Combine(GetModPacksDir(), modPackDir, ClientFolder);
             var file = new FileInfo(path);
             var targetFilePath = Path.Combine(outputPath, file.Name);
-            file.MoveTo(targetFilePath, true);
+            file.CopyTo(targetFilePath, true);
             return true;
 
         }
