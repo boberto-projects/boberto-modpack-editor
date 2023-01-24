@@ -41,7 +41,6 @@ namespace boberto_launcher_modpack_editor.Models
             }
             return Type.FILE;
         }
-
         private TypeEnviroment GetEnviromentType()
         {
             if (this.RelativePath.StartsWith("client"))

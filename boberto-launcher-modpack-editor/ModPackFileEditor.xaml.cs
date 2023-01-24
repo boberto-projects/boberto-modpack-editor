@@ -11,12 +11,14 @@ public partial class ModPackFileEditor : ContentPage
     public ObservableCollection<MinecraftFile> ClientFiles { get; set; }
     public ObservableCollection<MinecraftFile> ServerFiles { get; set; }
     public List<MinecraftFile> FilesToRemove { get; set; }
+    public List<ModMove> ModsToMove { get; set; }
     public ModPackFileEditor(ModPack modpack)
     {
         Files = new ObservableCollection<MinecraftFile>();
         ClientFiles = new ObservableCollection<MinecraftFile>();
         ServerFiles = new ObservableCollection<MinecraftFile>();
         FilesToRemove = new List<MinecraftFile>();
+        ModsToMove = new List<ModMove>();
         InitializeComponent();
 
         CurrentModPack = modpack;
@@ -42,17 +44,8 @@ public partial class ModPackFileEditor : ContentPage
             ServerFiles.Add(item);
         }
     }
-    private MinecraftFile CreateMinecraftFile(string modpackPath)
-    {
-        var modpackDir = Utils.GetModPacksDir(CurrentModPack.Directory);
-        return new MinecraftFile(modpackPath, modpackDir);
-    }
-    private void AddItemAllList(MinecraftFile minecraftFile)
-    {
-        ClientFiles.Add(minecraftFile);
-        ServerFiles.Add(minecraftFile);
-        Files.Add(minecraftFile);
-    }
+
+
     private void DragGestureRecognizer_DragStarting(object sender, DragStartingEventArgs e)
     {
         // var label = (sender as Element)?.Parent as Label;
@@ -74,8 +67,8 @@ public partial class ModPackFileEditor : ContentPage
         {
             if (isOriginalListFile == false && item.Enviroment.Equals(TypeEnviroment.Client))
             {
-                item.Enviroment = TypeEnviroment.Server;
                 ClientFiles.Remove(item);
+                ModsToMove.Add(new ModMove(CurrentModPack.Directory, item, TypeEnviroment.Server));
             }
             ServerFiles.Add(item);
         }
@@ -88,8 +81,8 @@ public partial class ModPackFileEditor : ContentPage
         {
             if (isOriginalListFile == false && item.Enviroment.Equals(TypeEnviroment.Server))
             {
-                item.Enviroment = TypeEnviroment.Client;
                 ServerFiles.Remove(item);
+                ModsToMove.Add(new ModMove(CurrentModPack.Directory, item, TypeEnviroment.Client));
             }
             ClientFiles.Add(item);
         }
@@ -113,15 +106,11 @@ public partial class ModPackFileEditor : ContentPage
     private async void OnAddServerFilesClicked(object sender, EventArgs e)
     {
         var modpackPath = Utils.GetModPacksDir(CurrentModPack.Directory);
-        PickOptions options = new()
-        {
-            PickerTitle = "Please select a comic file",
-        };
-        var files = await PickAndShow(options);
+        var files = await PickAndShow();
         foreach (var file in files)
         {
-            Utils.MoveFileToServer(file.FullPath, modpackPath);
-            var minecraftFile = CreateMinecraftFile(file.FullPath);
+            Utils.MoveFile(file.FullPath, Path.Combine(modpackPath, file.FileName));
+            var minecraftFile = Utils.CreateMinecraftFile(CurrentModPack.Directory, file.FullPath);
             ServerFiles.Add(minecraftFile);
             Files.Add(minecraftFile);
         }
@@ -130,15 +119,11 @@ public partial class ModPackFileEditor : ContentPage
     private async void OnAddClientFilesClicked(object sender, EventArgs e)
     {
         var modpackPath = Utils.GetModPacksDir(CurrentModPack.Directory);
-        PickOptions options = new()
-        {
-            PickerTitle = "Please select a comic file",
-        };
-        var files = await PickAndShow(options);
+        var files = await PickAndShow();
         foreach (var file in files)
         {
-            Utils.MoveFileToClient(file.FullPath, modpackPath);
-            var minecraftFile = CreateMinecraftFile(file.FullPath);
+            Utils.MoveFile(file.FullPath, Path.Combine(modpackPath, file.FileName));
+            var minecraftFile = Utils.CreateMinecraftFile(CurrentModPack.Directory, file.FullPath);
             ClientFiles.Add(minecraftFile);
             Files.Add(minecraftFile);
         }
@@ -150,20 +135,13 @@ public partial class ModPackFileEditor : ContentPage
     }
     private async void SaveClicked(object sender, EventArgs e)
     {
-        foreach (var item in ClientFiles)
+        foreach (var item in ModsToMove)
         {
-            Utils.MoveFileToClient(item.FullPath, CurrentModPack.Directory);
-        }
-        foreach (var item in ServerFiles)
-        {
-            Utils.MoveFileToServer(item.FullPath, CurrentModPack.Directory);
+            Utils.MoveFile(item.Origin, item.Destination);
         }
         foreach (var item in FilesToRemove)
         {
-            if (File.Exists(item.FullPath))
-            {
-                File.Delete(item.FullPath);
-            }
+            File.Delete(item.FullPath);
         }
         await Navigation.PopAsync();
     }
@@ -172,8 +150,12 @@ public partial class ModPackFileEditor : ContentPage
     /// </summary>
     /// <param name="options"></param>
     /// <returns></returns>
-    private async Task<IEnumerable<FileResult>> PickAndShow(PickOptions options)
+    private async Task<IEnumerable<FileResult>> PickAndShow()
     {
+        PickOptions options = new()
+        {
+            PickerTitle = "Please select a mod file",
+        };
         try
         {
             var result = await FilePicker.Default.PickMultipleAsync(options);
@@ -191,4 +173,7 @@ public partial class ModPackFileEditor : ContentPage
     {
         await Navigation.PopAsync();
     }
+
+
+
 }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using boberto_launcher_modpack_editor.Models;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,30 +69,27 @@ namespace boberto_launcher_modpack_editor
             }
             Directory.Delete(path, true);
         }
-        public static bool MoveFileToClient(string path, string modPackDir)
+        public static bool MoveFile(string path, string destination)
         {
-            if (File.Exists(path) == false)
-            {
-                return false;
-            }
-            var outputPath = Path.Combine(GetModPacksDir(), modPackDir, ClientFolder);
             var file = new FileInfo(path);
-            var targetFilePath = Path.Combine(outputPath, file.Name);
-            file.CopyTo(targetFilePath, true);
+            Directory.CreateDirectory(Path.GetDirectoryName(destination));
+            file.CopyTo(destination, true);
             return true;
-
         }
-        public static bool MoveFileToServer(string path, string modPackDir)
+
+        public static MinecraftFile CreateMinecraftFile(string modpackDir, string modPath)
         {
-            if (File.Exists(path) == false)
+            var modpackPath = Path.Combine(GetModPacksDir(modpackDir));
+            return new MinecraftFile(modPath, modpackPath);
+        }
+        public static string GetEnumDescription(this Enum enumValue)
+        {
+            var field = enumValue.GetType().GetField(enumValue.ToString());
+            if (Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is DescriptionAttribute attribute)
             {
-                return false;
+                return attribute.Description;
             }
-            var outputPath = Path.Combine(GetModPacksDir(), modPackDir, ServerFolder);
-            var file = new FileInfo(path);
-            var targetFilePath = Path.Combine(outputPath, file.Name);
-            file.MoveTo(targetFilePath, true);
-            return true;
+            throw new ArgumentException("Item not found.", nameof(enumValue));
         }
 
         /// <summary>

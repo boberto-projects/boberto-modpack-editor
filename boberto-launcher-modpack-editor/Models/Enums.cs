@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -20,7 +21,9 @@ namespace boberto_launcher_modpack_editor.Models
     }
     public enum TypeEnviroment
     {
+        [Description("client")]
         Client,
+        [Description("server")]
         Server
     }
 }
